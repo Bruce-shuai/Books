@@ -15,4 +15,33 @@
 ## useState
 
 在[《Hooks的优势》](Hooks/Hooks的优势.md)里我说过函数组件是没有`state`和`setState`的，因为`函数组件`是一个纯函数，执行完即销毁，无法存储`state`。而`useState`这个钩子能把`state`功能钩入到纯函数中
-下面的例子，我将一个简单的功能分别
+下面的例子，我将一个简单的点击功能分别用`class组件`和带`useState`这个`hook`的函数组件来实现,这样就方便大家理解useState的使用了
+```
+/*Class组件*/
+import React, { Component } from 'react';
+
+class ClickCounter extends Componnet {
+  constructor(props) {        // constructor为生命周期函数
+    super(props);
+    this.state = {            // 传统的初始化state数据的方式
+      count: 0;
+    };
+    this.setCount = this.setCount.bind(this);     // this绑定
+  }
+  setCount() {
+    this.setState({count: this.state.count + 1})  // 只能在setState里修改数据
+  }
+  
+  render() {
+    return <div>
+      <p> 你点击了{count}次 </p>
+      <button onClick={this.setCount}> 点击 </button>
+     </div>
+  }
+}
+```
+上面就是传统的Class组件实现点击功能，`state`只能在constructor里赋值，只能通过`setState`对`state`的值进行修改。下面来看看`useState`如何实现这相同的功能的
+```
+import React, { useState } from 'react';
+
+```
