@@ -65,4 +65,9 @@ const arr = useState(0);
 const count = arr[0];
 const setCount = arr[1]
 ```
-count其实就对应于Class组件的count，而setCount对应于Class组件的count，而useState(0)就是对count赋了一个初值0。
+count其实就对应于Class组件的count，而setCount对应于Class组件的setCount，而useState(0)就是对count赋了一个初值0。这就是useState的基本用法，替换了原来Class组件烦人的`state`赋值，修改`state`值，和this绑定方法，而换上了一身的轻装！
+
+### Hooks命名规范
+* 规定所有的`Hooks`都use开头，如useXxx
+* 自定义Hook也要以use开头
+* 非Hooks的地方，尽量不要使用useXxx写法
