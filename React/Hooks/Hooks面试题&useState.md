@@ -54,4 +54,15 @@ function ClickCounter() {
      </div>
 }
 ```
-不知你看带有
+不知当你看完同一个功能，使用hooks和使用Class组件两种方法实现的第一感受是什么？我第一次敲完这两个代码，第一感受就是`hooks`真TM干净！简短的代码和逻辑。输入参数，返回JSX。没有烦人的this，没有所谓的生命周期函数！ 好了，让我们来分析一下useState到底是怎么做到让代码如此干净的！
+<br />
+
+首先，让我们来看看核心语句`const [count, setCount] = useState(0)` ，在分析此语句前我啰嗦一下~由于useState是react自带的钩子，所以必须如我所写的代码一样要先引入useState！！[count, setCount]是数组的解构赋值，其真实面目如下
+```
+// const [count, setCount] = useState(0)
+/*--------逻辑和下面代码一样--------*/
+const arr = useState(0);
+const count = arr[0];
+const setCount = arr[1]
+```
+count其实就对应于Class组件的count，而setCount对应于Class组件的count，而useState(0)就是对count赋了一个初值0。
