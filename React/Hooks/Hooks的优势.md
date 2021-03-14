@@ -18,3 +18,8 @@
 <br/> 
 
 并且你不必担心自己曾经的class组件技术会被淘汰或者说曾经的class组件项目不能用了。React团队明确表示，`React Hooks`是可选功能，并且100%向后兼容，没有破坏性改动，是不会取代class组件的，并且尚无计划要移除class组件。只是React提供给了你一个更优秀的方法，去解决你的项目。
+
+## 知识路线
+在这次总结中我会按照👇的路线来梳理Hooks的知识
+
+`引出 React-Hooks 常见的面试题` -> `总结useState钩子` -> `总结useEffect钩子` -> `介绍useRef和useContext` -> `介绍useReduer` -> `useMemo和useCallback做性能优化` -> `Hooks使用的注意事项` -> `面试题解答`
