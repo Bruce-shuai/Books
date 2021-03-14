@@ -66,8 +66,14 @@ const count = arr[0];
 const setCount = arr[1]
 ```
 `count`其实就对应于`Class组件`的`count`，而`setCount`对应于`Class组件`的`setCount`，而`useState(0)`就是对`count`赋了一个初值0。这就是`useState`的基本用法，替换了原来`Class组件`烦人的`state`赋值，修改`state`值，和this绑定方法，而换上了一身的轻装！
+### useState的使用总结
+* useState(0)传入初始值，返回数组[state, setState]
+* 通过state获取值
+* 通过setState(1)修改值
 
 ### Hooks命名规范
 * 规定所有的`Hooks`都use开头，如useXxx
 * 自定义`Hook`也要以use开头
 * 非`Hooks`的地方，尽量不要使用useXxx写法
+
+此篇文章的内容是在我看完慕课网视频：[《前端框架及项目面试 聚焦Vue3/React/Webpack》](https://coding.imooc.com/learn/list/419.html)后总结所得
