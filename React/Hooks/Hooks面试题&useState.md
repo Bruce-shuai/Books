@@ -40,8 +40,18 @@ class ClickCounter extends Componnet {
   }
 }
 ```
-上面就是传统的Class组件实现点击功能，`state`只能在constructor里赋值，只能通过`setState`对`state`的值进行修改。下面来看看`useState`如何实现这相同的功能的
+上面就是传统的`Class组件`实现点击功能，`state`只能在`constructor`里赋值，只能通过`setState`对`state`的值进行修改。下面来看看`useState`如何实现这相同的功能的
 ```
 import React, { useState } from 'react';
 
+function ClickCounter() {
+  // 数组的解构
+  const [count, setCount] = useState(0);  
+  
+  return <div>
+      <p> 你点击了{count}次 </p>
+      <button onClick={() => {setCount(count + 1)}}> 点击 </button>
+     </div>
+}
 ```
+不知你看带有
