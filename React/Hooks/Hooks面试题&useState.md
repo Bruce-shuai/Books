@@ -20,7 +20,7 @@
 /*Class组件*/
 import React, { Component } from 'react';
 
-class ClickCounter extends Componnet {
+class ClickCounter extends Component {
   constructor(props) {        // constructor为生命周期函数
     super(props);
     this.state = {            // 传统的初始化state数据的方式
@@ -34,7 +34,7 @@ class ClickCounter extends Componnet {
   
   render() {
     return <div>
-      <p> 你点击了{count}次 </p>
+      <p> 你点击了{this.count}次 </p>
       <button onClick={this.setCount}> 点击 </button>
      </div>
   }
