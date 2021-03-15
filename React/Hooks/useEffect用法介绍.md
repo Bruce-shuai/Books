@@ -60,9 +60,42 @@ useEffect(() => {
 ### 模拟WillUnMount生命周期
 话不多说，上代码！
 ```
-import React, { useState, useEffect } from 'react';
 
+import React, { useState, useEffect } from 'react' 
+
+function ClickCounter() {
+    const [count, setCount] = useState(0) 
+    const [name, setName] = useState('帅得乱七八糟')
+
+    function clickHandler() {
+        setCount(count + 1)
+        setName(name + '2020')
+    }
+
+
+    useEffect(() => {
+        let timerId = window.setInterval(() => {
+             console.log(Date.now())
+        }, 1000)
+        
+        // 返回一个函数
+        // 模拟WillUnMount
+        return () => {
+             window.clearInterval(timerId)
+        }
+     }, [])
+
+    return <div>
+        <p>你点击了 {count} 次 {name}</p>
+        <button onClick={clickHandler}>点击</button>
+    </div>
+}
+
+export default ClickCounter
+      // 返回一个函数
 ```
+打印结果如图
+<img src='https://github.com/Bruce-shuai/Books/blob/main/images/Hooks/Hooks%20-4.png' height='250px'/>
 
 
 ```
