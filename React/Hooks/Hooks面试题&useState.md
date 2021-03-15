@@ -24,7 +24,7 @@ class ClickCounter extends Componnet {
   constructor(props) {        // constructor为生命周期函数
     super(props);
     this.state = {            // 传统的初始化state数据的方式
-      count: 0;
+      count: 0
     };
     this.setCount = this.setCount.bind(this);     // this绑定
   }
