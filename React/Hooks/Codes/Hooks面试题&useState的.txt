@@ -1,23 +1,23 @@
 /* ClickCounterClass.js */
 import React, { Component } from 'react';
 
-class ClickCounter extends Componnet {
-  constructor(props) {        // constructor为生命周期函数
-    super(props);
+class ClickCounter extends Component {
+  constructor() {        // constructor为生命周期函数
+    super();
     this.state = {            // 传统的初始化state数据的方式
       count: 0
     };
     this.setCount = this.setCount.bind(this);     // this绑定
   }
-  setCount() {
-    this.setState({count: this.state.count + 1})  // 只能在setState里修改数据
-  }
   
   render() {
     return <div>
-      <p> 你点击了{count}次 </p>
+      <p> 你点击了{this.state.count}次 </p>
       <button onClick={this.setCount}> 点击 </button>
      </div>
+  }
+  setCount() {
+    this.setState({count: this.state.count + 1})  // 只能在setState里修改数据
   }
 }
 
@@ -48,18 +48,9 @@ import ClickCounter from './ClickCounterClass';
 // import ClickCounter from './ClickCounter';
 
 function App() {
-  const [flag, setFlag] = useState(true)
-  const [id, setId] = useState(1)
 
   return (
     <div>
-      <p>React Hooks 帅得乱七八糟</p>
-      <div>
-        <button onClick={() => setFlag(false)}>flag = false</button>
-        <button onClick={() => setId(id + 1)}>id++</button>
-      </div>
-
-      <hr></hr>
       <ClickCounter/> 
     </div>
   );
