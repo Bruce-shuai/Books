@@ -5,6 +5,8 @@
 在前面所写的文章[《Hooks的优势》](Hooks/Hooks的优势.md)中，我提到过，函数组件是没有生命周期函数的，因为函数组件是一个纯函数，执行完即销毁，自己无法实现生命周期。但是生命周期函数的功能却又非常强大，它能在恰当好处的时候让组件使用或释放资源，从而提高性能和增加页面渲染的灵活度，但是生命周期函数会让相同的业务逻辑，分散到各个方法中，不便于测试和复用。而`useEffect`这个react自带的钩子能够取长补短，从而使`函数组件`变得异常强大...
 
 `useEffect`能够让函数组件模拟生命周期！具体如何操作，请看下面代码
+### 模拟DidUpdate & DidMount生命周期
+
 ```
 import React, { useState, useEffect } from 'react';
 
@@ -53,12 +55,20 @@ useEffect(() => {
 
 我们先来分析一下`useEffect`如何分别模拟的`DidMount`和`DidUpdate`，和前面`useEffect`同时模拟`DidMount`和`DidUpdate`不同，这里的`useEffect`有第二个参数，不过第一个`useEffect`钩子的第二参数是空数组，第二个`useEffect`钩子的第二参数是有元素的数组。
 <br><br/>
-那[]和[count, name]为何能模拟不同生命周期呢？ 答案就是数组里的元素是作为`useEffect`变化的依赖！`count`或者`name`任意一个元素发生变化，`useEffect`就会被重新执行，所以就模拟的`DidUpdate`这个生命周期函数，甚至它比`DidUpdate`更加灵活！而空数组为何能模拟`DidMount`呢? 原因就是该数组内没任何元素，所以不存在数组内元素变化，useEffect也就不会因此而被重新执行，所以自始至终就只会执行一次`useEffect`,这一次执行就是在函数最初被渲染的时候所执行的！
+那[]和[count, name]为何能模拟不同生命周期呢？ 答案就是数组里的元素是作为`useEffect`变化的依赖！`count`或者`name`任意一个元素发生变化，`useEffect`就会被重新执行，所以就模拟的`DidUpdate`这个生命周期函数，甚至它比`DidUpdate`更加灵活！而空数组为何能模拟`DidMount`呢? 原因就是该数组内没任何元素，所以不存在数组内元素变化，`useEffect`也就不会因此而被重新执行，所以自始至终就只会执行一次`useEffect`,这一次执行就是在函数最初被渲染的时候所执行的！
+
+### 模拟WillUnMount生命周期
+话不多说，上代码！
+```
+import React, { useState, useEffect } from 'react';
+
+```
+
 
 ```
 看到这儿了就先休息一会儿吧~ ☕️
 ```
-
+好了，上面我讲了`useEffect`模拟`DidMount`和`DidUpdate`这两个生命周期函数。但是
 
 ```
 // 模拟class组件的DidMount 和 WillUnMount
