@@ -34,7 +34,7 @@ class ClickCounter extends Component {
   
   render() {
     return <div>
-      <p> 你点击了{this.count}次 </p>
+      <p> 你点击了{this.state.count}次 </p>
       <button onClick={this.setCount}> 点击 </button>
      </div>
   }
