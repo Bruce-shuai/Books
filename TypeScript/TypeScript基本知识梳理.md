@@ -1,3 +1,10 @@
+```
+使用JS的朋友，大部分的代码错误都是在runtime(运行时)的时候发现的
+但是我们希望在静态代码中，就能找到其中的一些错误 -> 强类型，但是JS是一个弱类型的语言...
+```
+
+<hr />
+
 # TypeScript vs JavaScript
 TypeScript是“强类型”版的JS(JS是弱类型语言)，当我们在代码中定义变量(包括普通变量、函数、组件、hook等)的时候，TS允许我们在定义的同时指定其类型，这样使用者在使用不当的时候就会被及时报错提醒
 <hr />
@@ -150,12 +157,15 @@ const isFalsy = (value: unknown) => {
 }
 ```
 ```
-注意：我们可以给unknown类型的变量赋任何值，但不能把unknown类型赋给其他类型
+注意：我们可以给unknown类型的变量赋任何值，但不能把unknown类型赋给其他值
 // 做法正确
 let value: unknown;
 value = undefined;
 value = [];
 
+// 做法错误
+let valueNumber = 1;
+valueNumber = unknown;
 
 ```
 
@@ -183,5 +193,8 @@ JS文件 + .d.ts文件 === ts文件
 ```
 .d.ts文件一般我们写业务代码不会用到，但是点击类型跳转一般会跳转到.d.ts文件
 ```
+
+## TypeScript 泛型(重难点)
+
 
 
