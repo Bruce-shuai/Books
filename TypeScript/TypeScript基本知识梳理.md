@@ -6,7 +6,105 @@ TypeScript是“强类型”版的JS(JS是弱类型语言)，当我们在代码�
 温馨提示： 由于TS是微软开发的，使用同样是微软开发的vscode编译器，能够更好的支持TS的特性🥳
 ```
 使用了一段时间的TS之后，给了我完全不同于JS的开发体验，bug大大减少，编译器在我还没运行代码时就能给我及时的提示，以及代码更加易读，开发效率更高，总之，上手就回不去啦！！这对于曾经学过强类型语言例如，java，c++的同学来说
-一定有一种似曾相识的感受，如果，对本篇文章感兴趣，就接着往下看吧！
+一定有一种似曾相识的感受，如果，对本篇文章感兴趣，就接着往下看吧！☕️
 
 ## TypeScript的类型
-接下来我先梳理一下TS中常用的8种类型：number、string、
+接下来我先梳理一下TS中常用的8种类型：number、string、boolean、函数、array、any、void、object
+```
+注意： 1.相较于JS的类型而言，增加了any，void类型
+      2.在变量名后面的 : 写类型
+```
+下面，我们来挨个梳理一遍：
+### 1.number
+数字类型，包含小数、其他进制的数字：
+
+```
+/* number */
+let decimal: number = 6;       // 小数
+let hex: number = 0xf00d;      // 十六进制
+let binary: number = 0b1010;   // 二进制
+let octal: number = 0o744;     // 八进制
+/* bigint */
+let big: bigint = 100n;        
+```
+
+### 2.string
+字符串
+```
+let color: string = 'blue';
+```
+
+### 3.array
+在TS中，array一般指所有元素类型相同的值的集合，比如：
+```
+let list: Array<number> = [1, 2, 3];    // 使用的泛型 <-> 学过c++的同学应该有似曾相识的感觉
+
+// or
+
+interface User {     // 接口，可以看成类型的说明书
+  name: string
+}
+const john = {name: 'john'}
+const jack = {name: 'jack'}
+let personList = [john, jack] // 这里 john 和 jack 都是User类型
+```
+
+注意： 在JS中混合类型的元素放在一起也叫数组，但是在TS中有更严格的限定，以`tuple`(元组)
+来作为"混合类型的数组"
+
+```
+let l = ['jack', 10]
+```
+
+### 4.boolean
+布尔值：
+
+```
+let isDone: boolean = false;
+```
+
+### 5.函数
+
+两种方式：
+1. 在我们熟悉的“JS函数”上直接声明参数和返回值：
+
+```
+const isFalsy = (value: any): boolean => {
+  return value === 0 ? true : !!value; 
+}
+```
+
+2.直接声明你想要的函数类型(对的，你没有看错！是函数类型)
+
+```
+useMount = (fn: () => void) => {
+  useEffect(() => {
+    fn();
+  }, []);
+}
+
+const isFalsy: (value: any) => boolean = (value) => {  
+// (value: any) => boolean 就是一个函数类型
+  return value === 0 ? true : !!value  // !! + 变量名 -> 让变量类型变为对应的boolean类型
+}
+```
+
+### 6.any
+any表示这个值可以是任何值，被定义为any就意味着不做任何类型检查(注意： 少用any)
+
+```
+let looselyTyped: any = 4;
+// looselyTyped 的值明明是个4，哪里来的ifItExists方法呢？
+// 由于声明为any，我们没法在静态检查阶段发现这个错误
+looselyTyped.ifItExists();
+```
+
+```
+建议少用any
+```
+
+
+
+
+
+
