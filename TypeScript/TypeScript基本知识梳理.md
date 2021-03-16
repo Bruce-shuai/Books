@@ -100,11 +100,64 @@ looselyTyped.ifItExists();
 ```
 
 ```
-建议少用any
+建议少用any，any让ts在一定情况下失去了其强类型的特点，这样做会失去原本TS的保护！
 ```
 
+### 7.void
+绝大部分情况下，只会用在这一个地方：表示函数不返回值或者返回undefined(因为函数不返回任何值的时候 === 返回 undefined)
+```
+const useMount = (fn: () => void) => {
+  useEffect(() => {
+      fn();
+  }, []);
+};
+```
 
+### 8.object
+除了number、string、boolean、bigint、symbol、null、undefined, 其他都是object
 
+### 9.tuple
+
+```
+const [users, setUsers] = useState([])   // 说白了，tuple就是“数量固定，类型可以各异”版的数组
+```
+### 10.enum
+```
+enum Color {
+  Red,
+  Green,
+  Blue
+}
+let c: Color = Color.Green;
+
+```
+
+### 11.null和undefined
+null和undefined在TypeScript中既是一个值，也是一个类型
+```
+let u: undefined = undefined;
+let n: null = null;
+```
+
+### 12.unknown
+unknow 表示这个值可以是任何值，和any很相似，但比any更安全！更多限制！
+```
+const isFalsy = (value: unknown) => {
+  // 大家不用考虑这段console有啥意义，把它打在你的代码里对应的位置，观察编辑器会不会报错
+  // 再思考应不应该报错
+  console.log(value.mayNotExist)
+  return value === 0 ? true : !!value
+}
+```
+
+### 13.never
+```
+const func = () => {
+  throw new Error();
+}
+```
+
+### 14.interf
 
 
 
