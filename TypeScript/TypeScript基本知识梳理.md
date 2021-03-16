@@ -151,6 +151,8 @@ const isFalsy = (value: unknown) => {
 ```
 
 ### 13.never
+
+并不是太常用
 ```
 const func = () => {
   throw new Error();
