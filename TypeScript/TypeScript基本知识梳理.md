@@ -149,6 +149,15 @@ const isFalsy = (value: unknown) => {
   return value === 0 ? true : !!value
 }
 ```
+```
+注意：我们可以给unknown类型的变量赋任何值，但不能把unknown类型赋给其他类型
+// 做法正确
+let value: unknown;
+value = undefined;
+value = [];
+
+
+```
 
 ### 13.never
 
@@ -168,5 +177,11 @@ interface User {
 const u: User = {id: 1}
 ```
 
+### .d.ts
+JS文件 + .d.ts文件 === ts文件
+.d.ts文件可以让JS文件继续维持自己JS文件的身份，而拥有TS的类型保护
+```
+.d.ts文件一般我们写业务代码不会用到，但是点击类型跳转一般会跳转到.d.ts文件
+```
 
 
