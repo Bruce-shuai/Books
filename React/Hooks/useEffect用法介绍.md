@@ -8,30 +8,32 @@
 ### 模拟DidUpdate & DidMount生命周期
 
 ```
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-function ClickCounter(){
-  // 数组的解构
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState('帅得乱七八糟');
-  
-  useEffect(() => {
-    console.log('在此发送一个ajax请求')
-  })
-  
-  function clickHandler() {
-    setCount(count + 1)
-    setName(name + '2020')
-  }
-  return <div>
-    <p>你点击了{count}次</p>
-    <button onClick={clickHandler}>点击</button>
-  </div>
+function LifeCycles() {
+    // 数组的解构
+    const [count, setCount] = useState(0)
+    const [name, setName] = useState('帅得乱七八糟')
+
+    // 模拟 class 组件的 DidMount 和 DidUpdate
+    useEffect(() => {
+        console.log('在此发送一个 ajax 请求')
+    })
+
+    function clickHandler() {
+        setCount(count + 1)
+        setName(name + '2020')
+    }
+
+    return <div>
+        <p>你点击了 {count} 次 {name}</p>
+        <button onClick={clickHandler}>点击</button>
+    </div>
 }
 ```
 <img src='https://github.com/Bruce-shuai/Books/blob/main/images/Hooks/Hooks%20-1.png' height='200px'>
 
-从图中我们可以看出(黄色背景的提醒与此代码无关，请忽略)，`useEffect`模拟的是生命周期中的`DidMount` 和 `DidUpdate`, 有兴趣的朋友，可以跟着敲一敲代码，自己看看效果。
+从图中我们可以看出，`useEffect`模拟的是生命周期中的`DidMount` 和 `DidUpdate`, 有兴趣的朋友，可以跟着敲一敲代码，自己看看效果。
 <br><br/>
 生命周期函数有很多，而useEffect其实也可以模拟出很多非常重要的生命周期函数，感兴趣的话，就接着往下看吧！！
 
@@ -44,8 +46,9 @@ useEffect(() => {
 
 // 模拟class组件的DidUpdate
 useEffect(() => {
-  console.log(‘加载完了’)
-}, [count, name])       // 第二个参数不是空数组
+   console.log('更新了')
+}, [count, name])       // 第二个参数就是依赖的 state
+
 ```
 模拟`DidMount`的打印结果
 <img src='https://github.com/Bruce-shuai/Books/blob/main/images/Hooks/Hooks%20-2.png' height='150px'>
@@ -61,47 +64,48 @@ useEffect(() => {
 话不多说，上代码！
 ```
 
-import React, { useState, useEffect } from 'react' 
+import React, { useState, useEffect } from 'react'
 
-function ClickCounter() {
-    const [count, setCount] = useState(0) 
+function LifeCycles() {
+    // 数组的解构
+    const [count, setCount] = useState(0)
     const [name, setName] = useState('帅得乱七八糟')
+
+    useEffect(() => {
+        let timerId = window.setInterval(() => {
+            console.log(Date.now())
+        }, 1000)
+
+        // 返回一个函数 --- 为了解决定时任务导致的内存泄露
+        // 返回函数就是模拟 WillUnMount
+        return () => {
+            window.clearInterval(timerId)
+        }
+    }, [])
 
     function clickHandler() {
         setCount(count + 1)
         setName(name + '2020')
     }
 
-
-    useEffect(() => {
-        let timerId = window.setInterval(() => {
-             console.log(Date.now())
-        }, 1000)
-        
-        // 返回一个函数
-        // 模拟WillUnMount
-        return () => {
-             window.clearInterval(timerId)
-        }
-     }, [])
-
     return <div>
         <p>你点击了 {count} 次 {name}</p>
         <button onClick={clickHandler}>点击</button>
     </div>
 }
-
-export default ClickCounter
-      // 返回一个函数
 ```
 打印结果如图
 <img src='https://github.com/Bruce-shuai/Books/blob/main/images/Hooks/Hooks%20-4.png' height='250px'/>
+由于定时器设置的每隔一秒会打印一个时间戳，而定时器必须手动进行删除才行，在class组件中，我们一般会选择在WillUnMount中设置`clearInterval`来删除定时器，但是在`useEffect`上，返回一个函数同样能达到一致的效果，如图所示，点击flag按钮，删除LifeCycles组件，return的`clearInterval`就能删除定时器
+<img src='https://github.com/Bruce-shuai/Books/blob/main/images/Hooks/Hooks%20-5.png' height='250px'/>
+
+注：此处有完整[代码](https://github.com/Bruce-shuai/Books/blob/main/React/Hooks/Codes/useEffect用法介绍.txt)
+
 
 
 ```
 看到这儿了就先休息一会儿吧~ ☕️
 ```
-好了，上面我讲了`useEffect`模拟`DidMount`和`DidUpdate`这两个生命周期函数。但是
 
 ```
 // 模拟class组件的DidMount 和 WillUnMount
