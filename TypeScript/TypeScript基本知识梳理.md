@@ -157,7 +157,14 @@ const func = () => {
 }
 ```
 
-### 14.interf
+### 14.interface
+interface不是一种类型，应该被翻译成接口，或者说是一个类型说明书，创建一个我们自己的类型
+```
+interface User {
+  id: number;
+}
+const u: User = {id: 1}
+```
 
 
 
