@@ -101,75 +101,78 @@ function LifeCycles() {
 
 注：此处有完整[代码](https://github.com/Bruce-shuai/Books/blob/main/React/Hooks/Codes/useEffect用法介绍.txt)
 
+### useEffect使用总结
+* 模拟componentDidMount - useEffect 依赖[]
+* 模拟componentDidUpdate - useEffect 无依赖，或者依赖[a, b]
+* 模拟componentWillUnMount - useEffect 中返回一个函数
 
+useEffect让函数组件(纯函数)有了副作用。 在原本默认情况下，函数组件执行纯函数，输入参数，返回结果，无副作用。
+所谓副作用，就是对函数之外造成影响，如设置全局定时任务，而组件需要副作用，所以需要useEffect“钩”入纯函数。
 
 ```
 看到这儿了就先休息一会儿吧~ ☕️
 ```
-
+### useEffect模拟WillUnMount，但不完全相等
+前文提到，`useEffect`能够模拟`class组件`主要的生命周期，`useEffect`能够模拟`WillUnmount`，但是注意，其实并不完全相同！！
+<br/>
+为了让大家更清晰的看见有何区别，我分别执行class组件和hooks来完成同一个功能先看代码：
 ```
-// 模拟class组件的DidMount 和 WillUnMount
-useEffect(() => {
-  let timerId = window.setInterval(() => {
-      console.log(Date.now())
-  }, 1000)
-  
-  // 返回一个函数
-  // 模拟WillUnMount
-  return () => {
-      window.clearInterval(timerId)
-  }
-}, [])
-```
+/* class组件 */
+import React from 'react'
 
-还是和之前一样，我通过用class组件和hook实现相同的功能，进行二者代码的对比，从而让我们更深刻的理解hooks
-```
-import React, { Component } from 'react';
-
-Class FriendStatus extends React.Component {
-  constructor() {
-    super(props);
-    this.state = {
-      status: false; 
+class FriendStatus extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            status: false // 默认当前不在线
+        }
     }
-  }
-  render() {
+    render() {
+        return <div>
+            好友 {this.props.friendId} 在线状态：{this.state.status}
+        </div>
+    }
+    componentDidMount() {
+        console.log(`开始监听 ${this.props.friendId} 的在线状态`)
+    }
+    componentWillUnmount() {
+        console.log(`结束监听 ${this.props.friendId} 的在线状态`)
+    }
+    // friendId 更新
+    componentDidUpdate(prevProps) {
+        console.log(`结束监听 ${prevProps.friendId} 在线状态`)
+        console.log(`开始监听 ${this.props.friendId} 在线状态`)
+    }
+}
+```
+
+上面class组件的代码里包含了`constructor`、`componentDidMount`、`componentWillUnmount`、`componentDidUpdate`这几个生命周期, 最后的打印效果如下图
+<>
+
+```
+/* hooks */
+import React, { useState, useEffect } from 'react'
+
+function FriendStatus({ friendId }) {
+    const [status, setStatus] = useState(false)
+
+    // DidMount 和 DidUpdate
+    useEffect(() => {
+        console.log(`开始监听 ${friendId} 在线状态`)
+
+        // 【特别注意】
+        // 此处并不完全等同于 WillUnMount
+        // props 发生变化，即更新，也会执行结束监听
+        // 准确的说：返回的函数，会在下一次 effect 执行之前，被执行
+        return () => {
+            console.log(`结束监听 ${friendId} 在线状态`)
+        }
+    })
+
     return <div>
-      好友{ this.props.friendId } 在线状态：{this.state.status}
+        好友 {friendId} 在线状态：{status.toString()}
     </div>
-  }
-  
-  componentDidMount() {
-    console.log(`开始监听 ${this.props.friendId}的在线状态`)
-  }
-  componentWillMount() {
-    console.log(`结束监听 ${this.props.friendId}的在线状态`)
-  }
-  // friend更新的时候
-  componentDidUpdate(preProps) {
-    console.log(`结束监听 ${preProps.friendId} 在线状态`)
-		console.log(`开始监听${this.props.friendId} 在线状态`)
-  }
 }
-
-//--------------------------------------
-
-function App() {
- const [flag, setFlag] = useState(true);
- const [id, setId] = useState(1)
- 
- return (
-  <div>
-    <p> React Hooks 示例（双越老师）</p>
-    <div>
-      <button onClick={() => setFlag(false)}>flag = false</button>
-      <button onClick={() => setId(id + 1)}>id++</button>
-    </div>
-  </div>
-  
-  <hr></hr>
-  {flag && <FriendStatus friendId={}/>}
- )
-}
+```
 
 
