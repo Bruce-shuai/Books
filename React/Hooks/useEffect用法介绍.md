@@ -147,8 +147,12 @@ class FriendStatus extends React.Component {
 ```
 
 上面class组件的代码里包含了`constructor`、`componentDidMount`、`componentWillUnmount`、`componentDidUpdate`这几个生命周期, 最后的打印效果如下图
-<>
+点击`id++`按钮的打印结果
+<img src='https://github.com/Bruce-shuai/Books/blob/main/images/Hooks/Hooks%20-6.png' height='150px'>
+点击`flag=false`按钮的打印结果
+<img src='https://github.com/Bruce-shuai/Books/blob/main/images/Hooks/Hooks%20-7.png' height='150px'>
 
+下面用`useEffect`来模拟和`class组件`相同的效果
 ```
 /* hooks */
 import React, { useState, useEffect } from 'react'
@@ -174,5 +178,6 @@ function FriendStatus({ friendId }) {
     </div>
 }
 ```
+不知大家看完使用useEffect模拟完同种功能的感受如何？但是给我的感受就是代码非常简洁，复用性很高。用一个`useEffect`钩子，模拟了3个生命周期
 
 
