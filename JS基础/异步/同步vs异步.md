@@ -51,3 +51,39 @@ console.log(300)
 // 要点击确认按钮， 不然永远阻塞在200，页面不会往后运行
 // 300
 ```
+
+### 应用场景
+说白了，异步其实就是在等待的时候才用。而前端主要在以下两个场景使用异步
+```
+1. 网络请求  如ajax, 图片加载
+2. 定时任务  如setTimeout
+```
+
+因为在网络请求的时候cpu是空闲的，可不能浪费资源啊！所以需要异步的机制
+
+```
+// ajax
+console.log('start')
+$.get('./data1.json', function(data1) {
+  console.log(data1)
+})
+console.log('end')
+
+// 图片加载
+console.log('start')
+let img = document.createElement('img');
+img.onload = function() {
+  console.log('loaded')
+}
+img.src = '/xxx.png'
+console.log('end')
+
+// 定时任务
+// setTimeout
+console.log(100)
+setTimeout(function() {
+  console.log(200)
+}, 1000)
+
+
+```
