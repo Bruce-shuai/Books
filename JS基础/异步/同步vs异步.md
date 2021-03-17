@@ -151,4 +151,61 @@ getData(url1).then(data1 => {
 ```
 Promise中，catch是防错处理，.then都是单层的，是一个管道形式，而不是一个嵌套形式，比较符合人类的感官。
 
+## 将前面所讲的问题进行解答
+### 同步和异步的区别是什么？
+  * 基于JS是单线程语言
+  * 异步不会阻塞代码执行
+  * 同步会阻塞代码执行
+
+### 手写用Promise加载一张图片
+new Promise里面传一个函数，这个函数有两个参数 resolve和reject，并且这两个参数也是函数
+```
+/* 代码一*/
+function loadImg(src) {
+  const p = new Promise(
+    (resolve, reject) => {
+      const img = document.createElement('img')
+      img.onload = () => {     
+        resolve(img)
+      }
+      img.onerror = () => {
+        const err = new Error(`图片加载失败 ${src}`)
+        reject(err)
+      }
+      img.src = src
+    }
+  )
+  return p      // 一定要返回
+}
+
+const url = 'http://imga2.5054399.com/upload_pic/2015/9/1/4399_17562395347.gif';
+
+loadImg(url).then(img => {
+  console.log(img.width)
+  return img       // 返回一个普通对象， 第一个img会return到第二个then里面的img里
+}).then(img => {
+  console.log(img.height)
+}).catch(ex => console.error(ex))
+```
+```
+/* 代码二 */
+const url1 = 'http://imga2.5054399.com/upload_pic/2015/9/1/4399_17562395347.gif';
+const url2 = 'http://imga5.5054399.com/upload_pic/2014/5/15/4399_17502294860.jpg';
+
+loadImg(url1).then(img1 => {
+  console.log(img1.width)
+  return img1;  // 普通对象
+}).then(
+  img1 => {
+    console.log(img1.height)
+    return loading(url2) // Promise 实例
+  }).then(img2 => {
+  
+  })
+```
+如果return普通对象，下一个参数就会接受这个对象，如果return promise实例，它的下一个参数接受的就是这个promise实例加载的结果 ---> (这里可能要纠错！)
+
+
+
+
 
