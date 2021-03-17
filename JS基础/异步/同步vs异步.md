@@ -210,6 +210,7 @@ loadImg(url1).then(img1 => {
  * 定时任务，如setTimeout
 
 ### setTimeout 笔试题
+```
 console.log(1)
 setTimeout(function() {
   console.log(2)
@@ -219,6 +220,6 @@ setTimeout(function() {
   console.log(4)
 }, 0)
 console.log(5)
-
+```
 
 
