@@ -119,4 +119,14 @@ $.get(url1, (data1) => {
   })
 })
 ```
-如果再获取到10份，百份数据甚至更多，那么这恶心的嵌套，简直是反人类的代码！这就是臭名昭著的`callback hell`，而`callback hell`是促进Promise产生的一个很重要的原因！ 
+如果再获取到10份，100份数据，甚至更多。那么这恶心的嵌套，简直是反人类的代码！这就是臭名昭著的`callback hell`，而`callback hell`是促进Promise产生的一个很重要的原因！ 下面来看看使用Promise解决ajax问题是如何做的！
+
+```
+function getData(url) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url,
+    })
+  })
+}
+```
