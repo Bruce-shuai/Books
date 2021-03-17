@@ -205,7 +205,20 @@ loadImg(url1).then(img1 => {
 ```
 如果return普通对象，下一个参数就会接受这个对象，如果return promise实例，它的下一个参数接受的就是这个promise实例加载的结果 ---> (这里可能要纠错！)
 
+### 异步应用场景
+ * 网络请求， 如ajax图片加载
+ * 定时任务，如setTimeout
 
+### setTimeout 笔试题
+console.log(1)
+setTimeout(function() {
+  console.log(2)
+}, 1000)
+console.log(3)
+setTimeout(function() {
+  console.log(4)
+}, 0)
+console.log(5)
 
 
 
