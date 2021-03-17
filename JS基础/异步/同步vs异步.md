@@ -221,5 +221,5 @@ setTimeout(function() {
 }, 0)
 console.log(5)
 ```
-
+打印结果  1 3 5 4 2
 
