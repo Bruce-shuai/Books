@@ -97,4 +97,34 @@ console.log(300)
 
 ```
 
+### callback hell 和 Promise
+异步是基于callback来执行，但是如果只用callback解决ajax问题，就会陷入`callback hell`这个坑里面
+例如：
+
+```
+// 获取第一份数据
+$.get(url1, (data1) => {
+  console.log(data1)
+  
+  // 获取第二份数据
+  $.get(url2, (data2) => {
+    console.log(data2)
+    
+    // 获取第三份数据
+    $.get(url3, (data3) => {
+      console.log(data3)
+      
+      // 还可以获得更多的数据...
+    })
+  })
+})
+```
+如果再获取到10份，百份数据甚至更多，那么这恶心的嵌套，简直是反人类的代码！这就是臭名昭著的`callback hell`，而`callback hell`是促进Promise产生的一个很重要的原因！ 
+
+
+
+
+
+
+
 
